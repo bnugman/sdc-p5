@@ -69,7 +69,7 @@ In lieu of all of this, I have been choosing parameters non-systematically, usin
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a linear SVM using 80% / 20% split of training/testing data, and using StandardScaler to normalize the data. Since the training yielded a rather high testing accuracy (~94%), I haven't tweaked that part all that much.
+I trained a linear SVM using 80% / 20% split of training/testing data, and using StandardScaler to normalize the data. The C parameter of the linear SVM has been set to 0.01 from the default value of 1. This is the parameter that controls penalty for misclassified samples, and decreasing it can improve classifier's generalization / reduce overfitting.
 
 ### Sliding Window Search, Persistent Heatmap and Bounding Boxes
 
@@ -84,6 +84,8 @@ mimic the perspective view of the road.
 Ultimately I ended up using HOG features of the Y-channel of the YCrCb colorspace.
 
 For each frame, I used a sliding window technique and then used the boxes identified by the SVM classifier to update a heatmap.
+
+The SVM decision is thresholded at 0.2 value of the decision function to reduce false positives.
 
 The heatmap persisted from frame to frame, with previous value "fading" at a specified factor.
 
@@ -112,7 +114,7 @@ In the image below, left to right, top to bottom:
 
 #### 1. Final video is [here](./project_video_out.mp4)
 
-Or see it [on YouTube](https://www.youtube.com/watch?v=PIqb1hINeV4)
+Or see it [on YouTube](https://www.youtube.com/watch?v=U0ohqkaIWYU)
 
 The frames are:
 
